@@ -13,7 +13,7 @@
 }
 
 </style>
-<svg width="960" height="600"></svg>
+<svg width="1080" height="900"></svg>
 <script src="https://d3js.org/d3.v4.min.js"></script>
 <script>
 
@@ -31,6 +31,8 @@ var simulation = d3.forceSimulation()
 d3.json("data/actors_network.json", function(error, graph) {
   if (error) throw error;
 
+  var colors = ['#562a58','#8f3b6b','#c84f72','#fa6e6e']
+
   var link = svg.append("g")
       .attr("class", "links")
     .selectAll("line")
@@ -45,7 +47,10 @@ d3.json("data/actors_network.json", function(error, graph) {
     .enter().append("circle")
     //   .attr("r", 5)
       .attr("r", function(d) { return d.size; })
-      .attr("fill", function(d) { return color(d.group); })
+    //   .attr("fill", function(d) { return color(d.group); })
+    .style("fill", function(d){
+							return colors[d.group-1];
+						})
       .call(d3.drag()
           .on("start", dragstarted)
           .on("drag", dragged)
